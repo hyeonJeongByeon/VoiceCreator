@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <title>Voice Creator</title>
     <style>
         .wrapper{
@@ -36,15 +37,15 @@
             <h3>Choose the gender by pressing the button Male / Female. Choose the age group by pressing the dropdown list. </h3>
             <h3>Then move the slide bar to customize each features. Press the PLAY button to listen to the voice. </h3>
     </div>
-
+    
     <div style="display: flex;">
         <div style="display: flex;">
             <div>
-                <input type="radio" id="male" name="gender_input" value="male" checked>
+                <input type="radio" id="male" name="gender_input" value="0" checked>
                 <label for="male">Male</label>
             </div>
             <div>
-                <input type="radio" id="female" name="gender_input" value="female">
+                <input type="radio" id="female" name="gender_input" value="1">
                 <label for="female">Female</label>
             </div>
         </div>
@@ -83,9 +84,16 @@
             </div>
         </div>
     </div>
+    
     <button onclick="submit();">Submit</button>
+
+    <div id="url_list">
+    </div>
+
+
     <script type="text/javascript">
         function submit(){
+            $("#url_list").empty();
             var genderValue = '';
             if(document.getElementById('male').checked){
                 genderValue = document.getElementById('male').value;
@@ -109,33 +117,32 @@
 
             var id_num=ageValue+breathinessValue+smoothnessValue+hoarsenessValue+variationValue;
             console.log(id_num);
-
-            var path = require("/Users/byeonhyeonjeong/mTurk Voice Annotation");
-
-            var fs = require("fs");
-            var filePath = path.join(__dirname, "combined_0724.csv");
-            console.log(filePath);
-
-            module.exports = function(filePath) {
-                var data = fs.readFileSync(filePath, {encoding: "utf8"});
-                var rows = data.split("\n");
-                var result = [];
-
-                for (var rowIndex in rows) {
-                    var row = rows[rowIndex].split(",");
-                    if (rowIndex === "0") { var columns = row; } 
-                    else {
-                        var data = {}; // 빈 객체를 생성하고 여기에 데이터를 추가한다.
-                        for (var columnIndex in columns) { // 칼럼 갯수만큼 돌면서 적절한 데이터 추가하기.
-                            var column = columns[columnIndex];
-                            data[column] = row[columnIndex];
+            
+            var url = '/voice_search/'+genderValue +'/'+id_num+'/';
+            
+            $.ajax({
+                    type: "GET",
+                    // headers: {Authorization: "token " + "b9b19c39894e865ed982ce9914f14750aaa21f71"}, 
+                    url: url,     
+                    async: false,
+                    success: function(res){        
+                        console.log(res);
+                        var url_list = res['url_list'];
+                        
+                        for(var url of url_list){
+                            create_audio(url);
                         }
-                        result.push(data);
-                    }
-                }
-                console.log(result);
-                    }
+                    },       
+                });
+        }
 
-            }
+        function create_audio(url){
+            $("#url_list").append(
+                '<audio controls="" style="width: 400px; margin-bottom: 10px; margin-left: 50px;">' +
+                    '<source src="'+ url +'" type="audio/mpeg" />'+
+                '</audio>'
+                );
+        }
+        
     </script>
 </body>
