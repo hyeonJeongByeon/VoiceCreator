@@ -1,0 +1,141 @@
+<style>
+.wrapper{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Creator</title>
+    <style>
+        .wrapper{
+            display: flex;
+        }
+        .left{
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+        .slider{
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+        .question{
+            display: flex;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+    <div style="margin: 10px 0 10px 0px;">
+            <h3>Welcome to the Voice Creator website. You can create a virtual voice by adjusting the voice features below.</h3>
+            <h3>Choose the gender by pressing the button Male / Female. Choose the age group by pressing the dropdown list. </h3>
+            <h3>Then move the slide bar to customize each features. Press the PLAY button to listen to the voice. </h3>
+    </div>
+
+    <div style="display: flex;">
+        <div style="display: flex;">
+            <div>
+                <input type="radio" id="male" name="gender_input" value="male" checked>
+                <label for="male">Male</label>
+            </div>
+            <div>
+                <input type="radio" id="female" name="gender_input" value="female">
+                <label for="female">Female</label>
+            </div>
+        </div>
+        <select id="age" name="age" style="margin-left: 20px;">
+            <option value="" selected>Age Group</option>
+            <option value="1">18~24</option>
+            <option value="2">25~34</option>
+            <option value="3">35~44</option>
+            <option value="4">45~54</option>
+            <option value="5">55~64</option>
+            <option value="6">65 and older</option>
+        </select>
+    </div>
+
+    <div class="wrapper" style="margin-bottom: 0px;">
+        <div class="left" style="margin-bottom: 0px;">
+            <div style="display: flex;">
+                <div>
+                    <p>Full</p>
+                    <p>Rough</p>
+                    <p>Clear</p>
+                    <p>Monotonous</p>
+                </div>
+                <div style="margin-top: 10px; margin-left: 8px;">
+                    <div><input type="range" min="2" max="4" value="3" class="slider" id="breathiness"></div> 
+                    <div><input type="range" min="2" max="4" value="3" class="slider" id="smoothness"></div> 
+                    <div><input type="range" min="2" max="4" value="3" class="slider" id="hoarseness"></div>
+                    <div><input type="range" min="2" max="4" value="3" class="slider" id="variation"></div>
+                </div>
+                <div>
+                    <p>Breathy</p>
+                    <p>Smooth</p>
+                    <p>Hoarse</p>
+                    <p>Animated</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button onclick="submit();">Submit</button>
+    <script type="text/javascript">
+        function submit(){
+            var genderValue = '';
+            if(document.getElementById('male').checked){
+                genderValue = document.getElementById('male').value;
+                console.log(genderValue);
+            }else if(document.getElementById('female').checked){
+                genderValue = document.getElementById('female').value;
+                console.log(genderValue);
+            }
+
+            var ageValue=document.getElementById('age').value;
+            console.log(ageValue);
+
+            var breathinessValue=document.getElementById('breathiness').value;
+            console.log(breathinessValue);
+            var smoothnessValue=document.getElementById('smoothness').value;
+            console.log(smoothnessValue);
+            var hoarsenessValue=document.getElementById('hoarseness').value;
+            console.log(hoarsenessValue);
+            var variationValue=document.getElementById('variation').value;
+            console.log(variationValue);
+
+            var id_num=ageValue+breathinessValue+smoothnessValue+hoarsenessValue+variationValue;
+            console.log(id_num);
+
+            var path = require("/Users/byeonhyeonjeong/mTurk Voice Annotation");
+
+            var fs = require("fs");
+            var filePath = path.join(__dirname, "combined_0724.csv");
+            console.log(filePath);
+
+            module.exports = function(filePath) {
+                var data = fs.readFileSync(filePath, {encoding: "utf8"});
+                var rows = data.split("\n");
+                var result = [];
+
+                for (var rowIndex in rows) {
+                    var row = rows[rowIndex].split(",");
+                    if (rowIndex === "0") { var columns = row; } 
+                    else {
+                        var data = {}; // 빈 객체를 생성하고 여기에 데이터를 추가한다.
+                        for (var columnIndex in columns) { // 칼럼 갯수만큼 돌면서 적절한 데이터 추가하기.
+                            var column = columns[columnIndex];
+                            data[column] = row[columnIndex];
+                        }
+                        result.push(data);
+                    }
+                }
+                console.log(result);
+                    }
+
+            }
+    </script>
+</body>
