@@ -29,7 +29,7 @@ def voice_search(request,gender,voice_code):
     url_list =[]
     for voice in voice_list:
         preference = voice.preference
-        if preference in ['5','4']:
+        if preference in ['5','4','3','2','1']:
             url = voice.audio_url
             url_list.append(url)
         
