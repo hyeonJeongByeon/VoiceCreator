@@ -42,7 +42,6 @@
         <div style="display: flex;">
             <div style="display: flex; margin-left: 30px;">
                 <div>
-                    <label for="gender">Gender</label>
                     <select onchange="play();" id="gender" name="gender" style="margin-left: 20px;">
                         <option value="0" selected>male</option>
                         <option value="1">female</option>
@@ -54,7 +53,6 @@
                     <label for="female">Female</label>
                 </div> -->
             </div>
-            <label for="age">Age Group</label>
             <select onchange="play();" id="age" name="age" style="margin-left: 20px;">
                 <option value="1" selected>18~24</option>
                 <option value="2">25~34</option>
@@ -136,7 +134,7 @@
                     '<audio controls="" style="width: 400px; margin-bottom: 10px; margin-left: 50px;">' +
                         '<source src="'+ url +'" type="audio/mpeg" />'+
                     '</audio>' +
-                    '<input type="checkbox" name="checkbox[]" value='+url+'>'
+                    '<input style="width:25px;height:25px;" type="checkbox" name="checkbox[]" value='+url+'>'
                     
                     );
             }
