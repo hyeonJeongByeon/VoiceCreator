@@ -37,17 +37,21 @@
             <h3>Choose the gender by pressing the button Male / Female. Choose the age group by pressing the dropdown list. </h3>
             <h3>Then move the slide bar to customize each features. Press the 'Search' button to listen to the voice. </h3>
     </div>
-    
+    <form action="", method="POST">
     <div style="display: flex;">
         <div style="display: flex; margin-left: 30px;">
             <div>
-                <input type="radio" id="male" name="gender_input" value="0" checked>
-                <label for="male">Male</label>
+                <select id="gender" name="gender" style="margin-left: 20px;">
+                    <option value="" selected>Gender</option>
+                    <option value="0">male</option>
+                    <option value="1">female</option>
+                </select>
+                <!-- <input type="radio" id="male" name="gender_input" value="0" checked> -->
             </div>
-            <div>
+            <!-- <div>
                 <input type="radio" id="female" name="gender_input" value="1">
                 <label for="female">Female</label>
-            </div>
+            </div> -->
         </div>
         <select id="age" name="age" style="margin-left: 20px;">
             <option value="" selected>Age Group</option>
@@ -70,10 +74,10 @@
                     <p>Monotonous</p>
                 </div>
                 <div style="margin-top: 10px; margin-left: 8px;">
-                    <div><input type="range" min="2" max="4" value="3" class="slider" id="breathiness"></div> 
-                    <div><input type="range" min="2" max="4" value="3" class="slider" id="smoothness"></div> 
-                    <div><input type="range" min="2" max="4" value="3" class="slider" id="hoarseness"></div>
-                    <div><input type="range" min="2" max="4" value="3" class="slider" id="variation"></div>
+                    <div><input name="breathiness" type="range" min="2" max="4" value="3" class="slider" id="breathiness"></div> 
+                    <div><input name="smoothness" type="range" min="2" max="4" value="3" class="slider" id="smoothness"></div> 
+                    <div><input name="hoarseness" type="range" min="2" max="4" value="3" class="slider" id="hoarseness"></div>
+                    <div><input name="variation" type="range" min="2" max="4" value="3" class="slider" id="variation"></div>
                 </div>
                 <div>
                     <p>Breathy</p>
@@ -84,8 +88,10 @@
             </div>
         </div>
     </div>
+    <button type="button" onclick="play();" style="margin-left: 30px;">Search</button>
+    <button type="submit" style="margin-left: 30px;">Submit</button>
+    </form>
     
-    <button onclick="play();" style="margin-left: 30px;">Search</button>
 
     <div id="url_list">
     </div>
@@ -94,14 +100,7 @@
     <script type="text/javascript">
         function play(){
             $("#url_list").empty();
-            var genderValue = '';
-            if(document.getElementById('male').checked){
-                genderValue = document.getElementById('male').value;
-                console.log(genderValue);
-            }else if(document.getElementById('female').checked){
-                genderValue = document.getElementById('female').value;
-                console.log(genderValue);
-            }
+            var genderValue = document.getElementById('gender').value;
 
             var ageValue=document.getElementById('age').value;
             console.log(ageValue);
@@ -135,6 +134,9 @@
                     },       
                 });
         }
+        function save_user_input(){
+
+        }
 
         function create_audio(url){
             $("#url_list").append(
@@ -143,6 +145,5 @@
                 '</audio>'
                 );
         }
-        
     </script>
 </body>

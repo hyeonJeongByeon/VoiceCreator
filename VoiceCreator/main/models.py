@@ -9,3 +9,5 @@ class Voice(models.Model):
     audio_url = models.URLField(verbose_name="S3_URL")
     def __str__(self) -> str:
         return self.voice_code
+
+# class UserInput(models.Model):
