@@ -1,149 +1,152 @@
 <style>
-.wrapper{
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-}
-</style>
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <title>Voice Creator</title>
-    <style>
-        .wrapper{
-            display: flex;
-        }
-        .left{
-            margin-left: 50px;
-            margin-right: 50px;
-        }
-        .slider{
-            margin-right: 20px;
-            margin-bottom: 20px;
-        }
-        .question{
-            display: flex;
-        }
-        
+    .wrapper{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
     </style>
-
-</head>
-
-<body>
-    <div style="margin: 30px 0 10px 30px;">
-            <h3>Welcome to the Voice Creator website. Customize your virtual voice by adjusting the voice features below.</h3>
-            <h3>Choose the gender by pressing the button Male / Female. Choose the age group by pressing the dropdown list. </h3>
-            <h3>Then move the slide bar to customize each features. Press the 'Search' button to listen to the voice. </h3>
-    </div>
-    <form action="", method="POST">
-    <div style="display: flex;">
-        <div style="display: flex; margin-left: 30px;">
-            <div>
-                <select id="gender" name="gender" style="margin-left: 20px;">
-                    <option value="" selected>Gender</option>
-                    <option value="0">male</option>
-                    <option value="1">female</option>
-                </select>
-                <!-- <input type="radio" id="male" name="gender_input" value="0" checked> -->
-            </div>
-            <!-- <div>
-                <input type="radio" id="female" name="gender_input" value="1">
-                <label for="female">Female</label>
-            </div> -->
-        </div>
-        <select id="age" name="age" style="margin-left: 20px;">
-            <option value="" selected>Age Group</option>
-            <option value="1">18~24</option>
-            <option value="2">25~34</option>
-            <option value="3">35~44</option>
-            <option value="4">45~54</option>
-            <option value="5">55~64</option>
-            <option value="6">65 and older</option>
-        </select>
-    </div>
-
-    <div class="wrapper" style="margin-bottom: 0px;">
-        <div class="left" style="margin-bottom: 0px;">
-            <div style="display: flex;">
-                <div>
-                    <p>Full</p>
-                    <p>Rough</p>
-                    <p>Clear</p>
-                    <p>Monotonous</p>
-                </div>
-                <div style="margin-top: 10px; margin-left: 8px;">
-                    <div><input name="breathiness" type="range" min="2" max="4" value="3" class="slider" id="breathiness"></div> 
-                    <div><input name="smoothness" type="range" min="2" max="4" value="3" class="slider" id="smoothness"></div> 
-                    <div><input name="hoarseness" type="range" min="2" max="4" value="3" class="slider" id="hoarseness"></div>
-                    <div><input name="variation" type="range" min="2" max="4" value="3" class="slider" id="variation"></div>
-                </div>
-                <div>
-                    <p>Breathy</p>
-                    <p>Smooth</p>
-                    <p>Hoarse</p>
-                    <p>Animated</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <button type="button" onclick="play();" style="margin-left: 30px;">Search</button>
-    <button type="submit" style="margin-left: 30px;">Submit</button>
-    <div id="url_list">
-    </div>
-    </form>
     
-
-
-
-    <script type="text/javascript">
-        function play(){
-            $("#url_list").empty();
-            var genderValue = document.getElementById('gender').value;
-
-            var ageValue=document.getElementById('age').value;
-            console.log(ageValue);
-
-            var breathinessValue=document.getElementById('breathiness').value;
-            console.log(breathinessValue);
-            var smoothnessValue=document.getElementById('smoothness').value;
-            console.log(smoothnessValue);
-            var hoarsenessValue=document.getElementById('hoarseness').value;
-            console.log(hoarsenessValue);
-            var variationValue=document.getElementById('variation').value;
-            console.log(variationValue);
-
-            var id_num=ageValue+breathinessValue+smoothnessValue+hoarsenessValue+variationValue;
-            console.log(id_num);
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <title>Voice Creator</title>
+        <style>
+            .wrapper{
+                display: flex;
+            }
+            .left{
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+            .slider{
+                margin-right: 20px;
+                margin-bottom: 20px;
+            }
+            .question{
+                display: flex;
+            }
             
-            var url = '/voice_search/'+genderValue +'/'+id_num+'/';
-            
-            $.ajax({
-                    type: "GET",
-                    // headers: {Authorization: "token " + "b9b19c39894e865ed982ce9914f14750aaa21f71"}, 
-                    url: url,     
-                    async: false,
-                    success: function(res){        
-                        console.log(res);
-                        var url_list = res['url_list'];
-                        
-                        for(var url of url_list){
-                            create_audio(url);
-                        }
-                    },       
-                });
-        }
-        function save_user_input(){
-
-        }
-
-        function create_audio(url){
-            $("#url_list").append(
-                '<audio controls="" style="width: 400px; margin-bottom: 10px; margin-left: 50px;">' +
-                    '<source src="'+ url +'" type="audio/mpeg" />'+
-                '</audio>' // 체크박스 체크된것만
-                );
-        }
-    </script>
-</body>
+        </style>
+    
+    </head>
+    
+    <body>
+        <div style="margin: 30px 0 10px 30px;">
+                <h3>Welcome to the Voice Creator website. Customize your virtual voice by adjusting the voice features below.</h3>
+                <h3>Choose the gender by pressing the button Male / Female. Choose the age group by pressing the dropdown list. </h3>
+                <h3>Then move the slide bar to customize each features. Press the 'Search' button to listen to the voice. </h3>
+        </div>
+        <form method="POST">
+        {% csrf_token %}
+        <div style="display: flex;">
+            <div style="display: flex; margin-left: 30px;">
+                <div>
+                    <label for="gender">Gender</label>
+                    <select onchange="play();" id="gender" name="gender" style="margin-left: 20px;">
+                        <option value="0" selected>male</option>
+                        <option value="1">female</option>
+                    </select>
+                    <!-- <input type="radio" id="male" name="gender_input" value="0" checked> -->
+                </div>
+                <!-- <div>
+                    <input type="radio" id="female" name="gender_input" value="1">
+                    <label for="female">Female</label>
+                </div> -->
+            </div>
+            <label for="age">Age Group</label>
+            <select onchange="play();" id="age" name="age" style="margin-left: 20px;">
+                <option value="1" selected>18~24</option>
+                <option value="2">25~34</option>
+                <option value="3">35~44</option>
+                <option value="4">45~54</option>
+                <option value="5">55~64</option>
+                <option value="6">65 and older</option>
+            </select>
+        </div>
+    
+        <div class="wrapper" style="margin-bottom: 0px;">
+            <div class="left" style="margin-bottom: 0px;">
+                <div style="display: flex;">
+                    <div>
+                        <p>Full</p>
+                        <p>Rough</p>
+                        <p>Clear</p>
+                        <p>Monotonous</p>
+                    </div>
+                    <div style="margin-top: 10px; margin-left: 8px;">
+                        <div><input onchange="play();" name="breathiness" type="range" min="2" max="4" value="3" class="slider" id="breathiness"></div> 
+                        <div><input onchange="play();" name="smoothness" type="range" min="2" max="4" value="3" class="slider" id="smoothness"></div> 
+                        <div><input onchange="play();" name="hoarseness" type="range" min="2" max="4" value="3" class="slider" id="hoarseness"></div>
+                        <div><input onchange="play();" name="variation" type="range" min="2" max="4" value="3" class="slider" id="variation"></div>
+                    </div>
+                    <div>
+                        <p>Breathy</p>
+                        <p>Smooth</p>
+                        <p>Hoarse</p>
+                        <p>Animated</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <button type="button" onclick="play();" style="margin-left: 30px;">Search</button> -->
+        <div id="url_list"></div>    
+        <button type="submit" style="margin-left: 30px;">Submit</button> 
+        </form>
+        
+    
+    
+    
+    
+        <script type="text/javascript">
+            function play(){
+                $("#url_list").empty();
+                var genderValue = document.getElementById('gender').value;
+    
+                var ageValue=document.getElementById('age').value;
+                console.log(ageValue);
+    
+                var breathinessValue=document.getElementById('breathiness').value;
+                console.log(breathinessValue);
+                var smoothnessValue=document.getElementById('smoothness').value;
+                console.log(smoothnessValue);
+                var hoarsenessValue=document.getElementById('hoarseness').value;
+                console.log(hoarsenessValue);
+                var variationValue=document.getElementById('variation').value;
+                console.log(variationValue);
+    
+                var id_num=ageValue+breathinessValue+smoothnessValue+hoarsenessValue+variationValue;
+                console.log(id_num);
+                
+                var url = '/voice_search/'+genderValue +'/'+id_num+'/';
+                
+                $.ajax({
+                        type: "GET",
+                        // headers: {Authorization: "token " + "b9b19c39894e865ed982ce9914f14750aaa21f71"}, 
+                        url: url,     
+                        async: false,
+                        success: function(res){        
+                            console.log(res);
+                            var url_list = res['url_list'];
+                            
+                            for(var url of url_list){
+                                create_audio(url);
+                            }
+                        },       
+                    });
+            }
+            function save_user_input(){
+    
+            }
+    
+            function create_audio(url){
+                $("#url_list").append(
+                    '<audio controls="" style="width: 400px; margin-bottom: 10px; margin-left: 50px;">' +
+                        '<source src="'+ url +'" type="audio/mpeg" />'+
+                    '</audio>' +
+                    '<input type="checkbox" name="checkbox" value='+url+'>'
+                    
+                    );
+            }
+        </script>
+    </body>
