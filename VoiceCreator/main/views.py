@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http.response import JsonResponse
 from .models import Voice
 import os
@@ -32,8 +32,7 @@ def voice_search(request,gender,voice_code):
         if preference in ['5','4','3','2','1']:
             url = voice.audio_url
             url_list.append(url)
-    url_list = list(set(url_list))
-    if request.method == "POST":
-        gender = request.POST.get('gender')    
-    
+    url_list = list(set(url_list)) 
     return JsonResponse({"url_list":url_list})
+
+def save_user_input(request):
