@@ -20,4 +20,6 @@ class UserInput(models.Model):
     variation = models.CharField(verbose_name="variation",max_length=20)
     url = models.TextField(verbose_name="URL_list")
     def __str__(self) -> str:
-        return self.voice_code
+        return str(self.age_group + self.breathiness + self.smoothness + self.hoarseness + self.variation)
+    def url_split(self):
+        return self.url.split(',')

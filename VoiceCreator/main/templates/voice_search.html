@@ -37,7 +37,7 @@
                 <h3>Choose the gender by pressing the button Male / Female. Choose the age group by pressing the dropdown list. </h3>
                 <h3>Then move the slide bar to customize each features. Press the 'Search' button to listen to the voice. </h3>
         </div>
-        <form method="POST">
+        <form action="/save_user_input/" method="POST">
         {% csrf_token %}
         <div style="display: flex;">
             <div style="display: flex; margin-left: 30px;">
@@ -93,11 +93,7 @@
         <div id="url_list"></div>    
         <button type="submit" style="margin-left: 30px;">Submit</button> 
         </form>
-        
-    
-    
-    
-    
+
         <script type="text/javascript">
             function play(){
                 $("#url_list").empty();
@@ -135,16 +131,12 @@
                         },       
                     });
             }
-            function save_user_input(){
-    
-            }
-    
             function create_audio(url){
                 $("#url_list").append(
                     '<audio controls="" style="width: 400px; margin-bottom: 10px; margin-left: 50px;">' +
                         '<source src="'+ url +'" type="audio/mpeg" />'+
                     '</audio>' +
-                    '<input type="checkbox" name="checkbox" value='+url+'>'
+                    '<input type="checkbox" name="checkbox[]" value='+url+'>'
                     
                     );
             }

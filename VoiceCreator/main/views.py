@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http.response import JsonResponse
-from .models import Voice
+from .models import Voice, UserInput
 import os
 import csv
 
@@ -36,3 +36,29 @@ def voice_search(request,gender,voice_code):
     return JsonResponse({"url_list":url_list})
 
 def save_user_input(request):
+    if request.method == "POST":
+        gender = request.POST.get('gender')
+        age = request.POST.get('age')
+        breathiness = request.POST.get('breathiness')
+        smoothness = request.POST.get('smoothness')
+        hoarseness = request.POST.get('hoarseness')
+        variation = request.POST.get('variation')
+        url_list = request.POST.getlist('checkbox[]')
+        url_text = ''
+        for url in url_list:
+            url_text += (url+',')
+        new_input = UserInput()
+        new_input.gender = gender
+        new_input.age_group = age
+        new_input.breathiness = breathiness
+        new_input.smoothness = smoothness
+        new_input.hoarseness = hoarseness
+        new_input.variation = variation
+        new_input.url = url_text
+        new_input.save()
+        return redirect("page_renderer")
+    return redirect("page_renderer")
+
+def user_input_list(request):
+    user_inputs = UserInput.objects.all()
+    return render(request, "survey_result.html",{"survey_result":user_inputs})
