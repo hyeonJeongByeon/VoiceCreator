@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results</title>
+    <style>
+    table {
+                margin: auto;
+                text-align: center;
+                width: 80%;
+                border: 1px solid #444444;
+                border-collapse: collapse;
+            }
+    th,
+    td {
+        border: 1px solid #444444;
+
+    }
+    #title {
+        text-align: center;
+        background-color: rgb(208, 208, 208);
+        font-weight: bold;
+    }
+
+    td {
+        background-color: white;
+    }
+    </style>
+</head>
+<body>
+    <table>
+        <thead id="title">
+            <tr>
+                <th>ID</th>
+                <th>Gender</th>
+                <th>Age Group</th>
+                <th>Breathiness</th>
+                <th>Smoothness</th>
+                <th>Hoarseness</th>
+                <th>Variation</th>
+                <th>Url List</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in survey_result%}
+            <tr>
+                <td>{{result.id}}</td>
+                {% if result.gender == '0' %}
+                <td>Male</td>
+                {% else %}
+                <td>Female</td>
+                {% endif %}
+                {% if result.age_group == "1" %}
+                <td>18~24</td>
+                {% elif result.age_group == "2" %}
+                <td>25~34</td>
+                {% elif result.age_group == "3" %}
+                <td>35~44</td>
+                {% elif result.age_group == "4" %}
+                <td>45~54</td>
+                {% elif result.age_group == "5" %}
+                <td>55~64</td>
+                {% elif result.age_group == "6" %}
+                <td>65 and older</td>
+                {% endif %}
+                <td>{{result.breathiness}}</td>
+                <td>{{result.smoothness}}</td>
+                <td>{{result.hoarseness}}</td>
+                <td>{{result.variation}}</td>
+                <td>
+                <br>
+                {% for url in result.url_split%}
+                    <a href="{{url}}">{{url}}</a>
+                    <br>
+                {% endfor %}
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
