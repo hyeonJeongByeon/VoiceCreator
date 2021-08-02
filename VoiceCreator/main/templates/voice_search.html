@@ -123,9 +123,16 @@
                             console.log(res);
                             var url_list = res['url_list'];
                             
-                            for(var url of url_list){
-                                create_audio(url);
+                            if (url_list.length != 0) {
+                                for(var url of url_list){
+                                    create_audio(url);
+                                }
+                            }                                
+                            else{
+                                empty_audio();
                             }
+                                
+                            
                         },       
                     });
             }
@@ -137,6 +144,11 @@
                     '<input style="width:25px;height:25px;" type="checkbox" name="checkbox[]" value='+url+'>'
                     
                     );
+            }
+            function empty_audio(){
+                $("#url_list").append(
+                    '<h4 style="margin-left: 25px;">There aren\'t any voices that meets the conditions.</h4>'
+                );
             }
         </script>
     </body>
