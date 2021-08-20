@@ -33,18 +33,55 @@
     
     <body>
         <div style="margin: 30px 0 10px 30px;">
-                <h3>Welcome to the Voice Creator website. Customize your virtual voice by adjusting the voice features below.</h3>
-                <h3>Choose the gender by pressing the button Male / Female. Choose the age group by pressing the dropdown list. </h3>
-                <h3>Then move the slide bar to customize each features. Press the 'Search' button to listen to the voice. </h3>
+                <h3>Voice Creator 웹사이트 사용법</h3>
+                <h4>이 웹사이트에서는 온라인 소통을 할 때 사용하고 싶은 목소리를 고를 수 있습니다. 우선 진행자의 안내대로 부여받은 참가자 번호와 상황번호를 설정해주세요. </h4> 
+                <h4>그 후, 만들고 싶은 목소리의 성별과 나이대를 설정합니다. 드롭다운 버튼을 누르면 남성/여성, 그리고 각 나이대별 옵션을 선택할 수 있습니다. </h4>
+                <h4>이제 스케일바의 왼쪽과 오른쪽 단어 중에서 자신이 선호하는 목소리에 더 가까운 단어로 슬라이드바를 이동해보세요. 옵션을 바꾸면 슬라이드 하단에 여러개의 오디오가 나타납니다.</h4>
+                <h4>재생 버튼을 눌러 목소리를 들어본 후, 마음에 드는 목소리의 체크박스를 선택해주세요. 한 조건에 대해 여러개의 체크박스를 누를 수 있습니다. 다중 선택 후 하단의 ‘제출' 버튼을 누르면 선택 결과가 저장됩니다.</h4>
+                <h4>다시 성별과 연령 그리고 슬라이드바를 조정하여 다른 설정의 목소리를 들어보세요. </h4>
         </div>
         <form action="/save_user_input/" method="POST">
         {% csrf_token %}
         <div style="display: flex;">
+            <select onchange="play();" id="test_id" name="test_id" style="margin-left: 20px;">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+            </select>
+            <select onchange="play();" id="situation" name="situation" style="margin-left: 20px;">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
             <div style="display: flex; margin-left: 30px;">
                 <div>
                     <select onchange="play();" id="gender" name="gender" style="margin-left: 20px;">
-                        <option value="0" selected>male</option>
-                        <option value="1">female</option>
+                        <option value="0" selected>남성</option>
+                        <option value="1">여성</option>
                     </select>
                     <!-- <input type="radio" id="male" name="gender_input" value="0" checked> -->
                 </div>
@@ -67,10 +104,10 @@
             <div class="left" style="margin-bottom: 0px;">
                 <div style="display: flex;">
                     <div>
-                        <p>Full</p>
-                        <p>Rough</p>
-                        <p>Clear</p>
-                        <p>Monotonous</p>
+                        <p>숨소리가 적다</p>
+                        <p>거칠다</p>
+                        <p>맑다</p>
+                        <p>음고 변화가 적다</p>
                     </div>
                     <div style="margin-top: 10px; margin-left: 8px;">
                         <div><input onchange="play();" name="breathiness" type="range" min="2" max="4" value="3" class="slider" id="breathiness"></div> 
@@ -79,17 +116,17 @@
                         <div><input onchange="play();" name="variation" type="range" min="2" max="4" value="3" class="slider" id="variation"></div>
                     </div>
                     <div>
-                        <p>Breathy</p>
-                        <p>Smooth</p>
-                        <p>Hoarse</p>
-                        <p>Animated</p>
+                        <p>숨소리가 많다</p>
+                        <p>부드럽다</p>
+                        <p>목이 쉰듯하다</p>
+                        <p>음고 변화가 많다</p>
                     </div>
                 </div>
             </div>
         </div>
         <!-- <button type="button" onclick="play();" style="margin-left: 30px;">Search</button> -->
         <div id="url_list"></div>    
-        <button type="submit" style="margin-left: 30px;">Submit</button> 
+        <button type="submit" style="margin-left: 30px;">제출</button> 
         </form>
 
         <script type="text/javascript">
