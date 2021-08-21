@@ -32,7 +32,7 @@
     </head>
     
     <body>
-        <div style="margin: 30px 0 10px 30px;">
+        <div style="margin: 30px 0 10px 30px; width: 70%;">
                 <h3>Voice Creator 웹사이트 사용법</h3>
                 <h4>이 웹사이트에서는 온라인 소통을 할 때 사용하고 싶은 목소리를 고를 수 있습니다. 우선 진행자의 안내대로 부여받은 참가자 번호와 상황번호를 설정해주세요. </h4> 
                 <h4>그 후, 만들고 싶은 목소리의 성별과 나이대를 설정합니다. 드롭다운 버튼을 누르면 남성/여성, 그리고 각 나이대별 옵션을 선택할 수 있습니다. </h4>
@@ -71,14 +71,15 @@
                 <option value="24">24</option>
             </select>
             <select onchange="show_situation();" id="situation" name="situation" style="margin-left: 20px;">
-                <option value="1" selected>1</option>
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
         </div>
-        <div id="situation_text" style="width:50%;">
+        <div id="situation_text" style="width:60%;">
         <h4 style="margin-left: 25px;">'당신은 명절을 맞아 멀리 떨어져 지내는 가족/친구와 오랜만에 안부인사와 근황을 전하려고 합니다. 앞서 설명한 플랫폼을 통해 맞춤형 목소리를 제작하여 원하는 목소리로 통화를 할 수 있다면 당신은 어떤 목소리로 소통하고 싶으십니까?'</h4>
         </div>
         <div style="display: flex; margin-top: 30px;">
