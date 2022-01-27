@@ -10,7 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <title>목소리 선택 웹사이트</title>
+        <title>Voice Search Web</title>
         <style>
             .wrapper{
                 display: flex;
@@ -33,11 +33,11 @@
     
     <body>
         <div style="margin: 30px 0 10px 30px; width: 90%;">
-                <h3>목소리 선택 웹사이트 사용법</h3>
-                <h4>이 웹사이트에서는 온라인 소통을 할 때 사용하고 싶은 목소리를 고를 수 있습니다. 우선 진행자의 안내대로 부여받은 참가자 번호와 상황번호를 설정해주세요. </h4> 
-                <h4>그 후, 만들고 싶은 목소리의 성별과 나이대를 설정합니다. 드롭다운 버튼을 누르면 남성/여성, 그리고 각 나이대별 옵션을 선택할 수 있습니다. </h4>
-                <h4>이제 스케일바의 왼쪽과 오른쪽 단어 중에서 자신이 선호하는 목소리에 더 가까운 단어로 슬라이드바를 이동해보세요. 옵션을 바꾸면 슬라이드 하단에 여러개의 오디오가 나타납니다.</h4>
-                <h4>재생 버튼을 눌러 목소리를 들어본 후, 마음에 드는 목소리의 체크박스를 선택해주세요. 선택 후 하단의 ‘제출' 버튼을 누르면 선택 결과가 저장됩니다.</h4>
+                <h3>Voice Search Web Instructions</h3>
+                <h4>This website allows you to search and select a preferable voice that you can use in online communications. First, please set your provided participant ID and situation ID as guided by the instructor.</h4> 
+                <h4>After that, set the gender and age group of the voice you want to search. Click on the drop-down button to select male/female and age group options.</h4>
+                <h4>Now move the slider to the left or right, towards the word that is closer to your preferred voice. Multiple audio files that suit the condition will appear at the bottom of the slider as you change the options.</h4>
+                <h4>Press the play button to listen to the voice, and select the checkbox next to the voice you prefer. Multi-selection is allowed. Press the ‘Submit’ button at the bottom of the page to save your results.</h4>
                 
         </div>
         <form action="/save_user_input/" method="POST">
@@ -80,12 +80,12 @@
             </select>
         </div>
         <div id="situation_text" style="width:60%;">
-        <h4 style="margin-left: 25px;">자신의 목소리에 해당하는 속성을 표시해주세요.</h4>
+        <h4 style="margin-left: 25px;">Please indicate the attribute that best describes your voice.</h4>
         </div>
         <div style="display: flex; margin-top: 30px;">
             <select onchange="play();" id="gender" name="gender" style="margin-left: 20px;">
-                <option value="0" selected>남성</option>
-                <option value="1">여성</option>
+                <option value="0" selected>Male</option>
+                <option value="1">Female</option>
             </select>
             <select onchange="play();" id="age" name="age" style="margin-left: 20px;">
                 <option value="1" selected>18~24</option>
@@ -101,10 +101,10 @@
             <div class="left" style="margin-bottom: 0px;">
                 <div style="display: flex;">
                     <div>
-                        <p>숨소리가 적다</p>
-                        <p>거칠다</p>
-                        <p>맑다</p>
-                        <p>음높이 변화가 적다</p>
+                        <p>Full</p>
+                        <p>Rough</p>
+                        <p>Clear</p>
+                        <p>Monotonous</p>
                     </div>
                     <div style="margin-top: 10px; margin-left: 8px;">
                         <div><input onchange="play();" name="breathiness" type="range" min="2" max="4" value="3" class="slider" id="breathiness"></div> 
@@ -113,17 +113,17 @@
                         <div><input onchange="play();" name="variation" type="range" min="2" max="4" value="3" class="slider" id="variation"></div>
                     </div>
                     <div>
-                        <p>숨소리가 많다</p>
-                        <p>부드럽다</p>
-                        <p>목이 쉰듯하다</p>
-                        <p>음높이 변화가 많다</p>
+                        <p>Breathy</p>
+                        <p>Smooth</p>
+                        <p>Hoarse</p>
+                        <p>Animated</p>
                     </div>
                 </div>
             </div>
         </div>
         <!-- <button type="button" onclick="play();" style="margin-left: 30px;">Search</button> -->
         <div id="url_list"></div>    
-        <button type="submit" style="margin-left: 30px;">제출</button> 
+        <button type="submit" style="margin-left: 30px;">Submit</button> 
         </form>
         <script type="text/javascript">
             function play(){
@@ -180,18 +180,18 @@
             }
             function empty_audio(){
                 $("#url_list").append(
-                    '<h4 style="margin-left: 25px;">조건에 맞는 목소리가 없습니다. 다른 조건을 선택하세요.</h4>'
+                    '<h4 style="margin-left: 25px;">No voices found. Please select a different condition.</h4>'
                 );
             }
             function show_situation(){
                 $("#situation_text").empty();
                 var situationInput = Number($("#situation").val());
-                var situationText = ['당신은 명절을 맞아 멀리 떨어져 지내는 가족/친구와 오랜만에 안부인사와 근황을 전하려고 합니다. 앞서 설명한 플랫폼을 통해 맞춤형 목소리를 제작하여 원하는 목소리로 통화를 할 수 있다면 당신은 어떤 목소리로 소통하고 싶으십니까?',
-                                    "당신은 한 학기동안 실시간 온라인 수업에 학생으로 참여하려고 합니다. 수업은 매번 질의응답, 발표 및 토론이 활발히 진행되고, 교수자(예: 교수, 교사, 강사) 외 수업을 함께 듣는 다른 학생들과는 이미 서로 얼굴을 알고 있다고 가정합시다. 앞서 설명한 플랫폼을 통해 맞춤형 목소리를 제작하여 원하는 목소리로 수업에 참여를 할 수 있다면 당신은 어떤 목소리로 소통하고 싶으십니까?",
-                                    '당신은 다른 유저와 협력하며 즐기는 게임(예: 오버워치, 배틀그라운드)에서 같은 팀 내 다른 멤버들과 소통하려고 합니다. 이 때, 키보드로 입력하고 화면의 글을 읽어야하는 채팅 대신 보이스톡 기능을 활용하여 참여하기로 합니다. 앞서 설명한 플랫폼을 통해 맞춤형 목소리를 제작하여 원하는 목소리로 게임에 참여를 할 수 있다면 당신은 어떤 목소리로 소통하고 싶으십니까?',
-                                    '당신이 배송받은 물품이 파손된 상태로 도착하여 해당 물품 생산 업체 콜센터 상담원에게 문의하려고 합니다. 앞서 설명한 플랫폼을 통해 맞춤형 목소리를 제작하여 원하는 목소리로 민원상담을 할 수 있다면 당신은 어떤 목소리로 소통하고 싶으십니까?',
-                                    '당신은 당신이 잘 아는 분야에 대한 정보전달용 유튜브 콘텐츠(예: 다큐멘터리)를 제작하려고 합니다. 따라서 당신은 영상 클립, 자막, 목소리를 넣어 영상을 구성하려고 하고 이 영상은 유튜브를 사용하는 불특정 다수에게 보여질 수 있습니다. 앞서 설명한 플랫폼을 통해 맞춤형 목소리를 제작하여 원하는 목소리로 영상을 만들 수 있다면 당신은 어떤 목소리로 소통하고 싶으십니까?',
-                                    '자신의 목소리에 해당하는 속성을 표시해주세요.']
+                var situationText = ['You are trying to send greeting messages to your family or friends during the holidays. If you could create a customized voice using the platform described above and make a phone call with the voice you prefer, what kind of voice would you like to communicate with?',
+                                    'You are a student participating in an online class that requires active discussions and presentations. Let’s assume that you are familiar with the instructor and the classmates. If you could create a customized voice using the platform described above and participate in class with the voice you prefer, what kind of voice would you like to communicate with?',
+                                    'You are trying to communicate with team members in an online game (e.g., League of Legends, Overwatch, PlayerUnknown’s Battlegrounds) using your voice. If you could create a customized voice using the platform described above and use this voice in-game, what kind of voice would you like to communicate with?',
+                                    'You are trying to call the customer service center and inquire about the damaged package you received. If you could create a customized voice using the platform described above and make a phone call, what kind of voice would you like to communicate with?',
+                                    'You are trying to film an informative video, such as a documentary, that includes your voice. This video will be uploaded on YouTube and anyone on the internet can access your clip. If you could create a customized voice using the platform described above and use it for your video clip, what kind of voice would you like to use?',
+                                    'Please indicate the attribute that best describes your voice.']
                 $("#situation_text").append(
                     '<h4 style="margin-left: 25px;">'+situationText[situationInput-1]+'</h4>'
                 );
